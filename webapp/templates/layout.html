@@ -26,19 +26,26 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Histórico Evolução</a>
+              {% if current_user.user_type == 'fisioterapeuta' %}
+                <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Hist. Evolução</a>
+                <a class="nav-item nav-link" href="{{ url_for('orientacoes.minhasorientacoes') }}">Hist. Orientações</a>
+              {% endif %}
               <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              {% if current_user.is_authenticated %}
+              {% if current_user.user_type == 'fisioterapeuta' %}
                 <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">Nova Evolução</a>
+                <a class="nav-item nav-link" href="{{ url_for('orientacoes.new_orientacao') }}">Nova Orientação</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Conta</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+              {% elif current_user.user_type == 'paciente' %}
+                <a class="nav-item nav-link" href="{{ url_for('orientacoes.minhasorientacoes') }}">Minhas Orientações</a>
                 <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Conta</a>
                 <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
               {% else %}
                 <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Registrar/Profissional</a>
-                <a class="nav-item nav-link" href="{{ url_for('users.pacregister') }}">Registrar/Paciente</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Registrar</a>
               {% endif %}
             </div>
           </div>
