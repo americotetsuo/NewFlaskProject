@@ -25,10 +25,12 @@ def create_app(config_class=Config):
 
     from webapp.users.routes import users
     from webapp.posts.routes import posts
+    from webapp.orientacoes.routes import orientacoes
     from webapp.main.routes import main
     from webapp.errors.handlers import errors
     app.register_blueprint(users)
     app.register_blueprint(posts)
+    app.register_blueprint(orientacoes)
     app.register_blueprint(main)
     app.register_blueprint(errors)
 
